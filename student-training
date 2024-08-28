@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-
 using namespace std;
 
 bool binarySearch(string students[], int size, string target) {
