@@ -1,0 +1,131 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 100
+
+class Deque {
+private:
+    int front, rear, size;
+    int deque[MAX];
+
+public:
+    Deque() : front(0), rear(-1), size(0) {}
+
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    bool isFull() {
+        return size == MAX;
+    }
+
+    void addFront(int element) {
+        if (isFull()) {
+            cout << "Deque is full!" << endl;
+            return;
+        }
+        front = (front - 1 + MAX) % MAX;
+        deque[front] = element;
+        size++;
+    }
+
+    void addRear(int element) {
+        if (isFull()) {
+            cout << "Deque is full!" << endl;
+            return;
+        }
+        rear = (rear + 1) % MAX;
+        deque[rear] = element;
+        size++;
+    }
+
+    int removeFront() {
+        if (isEmpty()) {
+            cout << "Deque is empty!" << endl;
+            return -1;
+        }
+        int element = deque[front];
+        front = (front + 1) % MAX;
+        size--;
+        return element;
+    }
+
+    int removeRear() {
+        if (isEmpty()) {
+            cout << "Deque is empty!" << endl;
+            return -1;
+        }
+        int element = deque[rear];
+        rear = (rear - 1 + MAX) % MAX;
+        size--;
+        return element;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Deque is empty!" << endl;
+            return;
+        }
+        int i = front;
+        int count = 0;
+        while (count < size) {
+            cout << deque[i] << " ";
+            i = (i + 1) % MAX;
+            count++;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Deque dq;
+    int choice, element;
+
+    do {
+        cout << "Deque Operations Menu:" << endl;
+        cout << "1. Add element at front" << endl;
+        cout << "2. Add element at rear" << endl;
+        cout << "3. Remove element from front" << endl;
+        cout << "4. Remove element from rear" << endl;
+        cout << "5. Display elements" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter element to add at front: ";
+                cin >> element;
+                dq.addFront(element);
+                break;
+            case 2:
+                cout << "Enter element to add at rear: ";
+                cin >> element;
+                dq.addRear(element);
+                break;
+            case 3:
+                element = dq.removeFront();
+                if (element != -1) {
+                    cout << "Removed element from front: " << element << endl;
+                }
+                break;
+            case 4:
+                element = dq.removeRear();
+                if (element != -1) {
+                    cout << "Removed element from rear: " << element << endl;
+                }
+                break;
+            case 5:
+                cout << "Deque elements: ";
+                dq.display();
+                break;
+            case 6:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please enter a number between 1 and 6." << endl;
+        }
+    } while (choice != 6);
+
+    return 0;
+}
