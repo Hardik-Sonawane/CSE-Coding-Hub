@@ -1,31 +1,43 @@
-#include <stdio.h>
+#include <iostream>
+#include <vector>
 
-int main() {
-    int n, b[20], temp, i;
-    int found = 0;
+using namespace std;
 
-    printf("Enter array size here: ");
-    scanf("%d", &n);
-
-    printf("Enter array elements here:\n");
-    for (i = 0; i < n; i++) {
-        scanf("%d", &b[i]);
-    }
-
-    printf("Enter the array element to find: ");
-    scanf("%d", &temp);
-
-    for (i = 0; i < n; i++) {
-        if (temp == b[i]) {
-            found = 1;
-            printf("The element %d is present at position %d\n", temp, i);
-            break;
+void searchElement(const vector<int>& array, int element) {
+    bool found = false;
+    for (size_t i = 0; i < array.size(); i++) {
+        if (array[i] == element) {
+            found = true;
+            cout << "The element " << element << " is present at position " << i << endl;
         }
     }
-
     if (!found) {
-        printf("The element %d is not present in the array\n", temp);
+        cout << "The element " << element << " is not present in the array." << endl;
     }
+}
+
+int main() {
+    int n;
+    cout << "Enter array size here (1-20): ";
+    cin >> n;
+
+    // Input validation
+    if (n <= 0 || n > 20) {
+        cout << "Invalid array size. Please enter a size between 1 and 20." << endl;
+        return 1;
+    }
+
+    vector<int> b(n);
+    cout << "Enter array elements here:" << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
+    }
+
+    int temp;
+    cout << "Enter the array element to find: ";
+    cin >> temp;
+
+    searchElement(b, temp);
 
     return 0;
 }
