@@ -1,33 +1,38 @@
 #include <iostream>
+#include <stack>
 #include <string>
 using namespace std;
 
+// Function to check if a string is a palindrome using a stack
 bool isPalindrome(const string& input) {
-    int left = 0;
-    int right = input.length() - 1;
+    stack<char> charStack;
+    string reversedString;
 
-    while (left < right) {
-        if (input[left] != input[right]) {
-            return false; // Not a palindrome if characters don't match
-        }
-        left++;
-        right--;
+    // Push all characters of the string onto the stack
+    for (char ch : input) {
+        charStack.push(ch);
     }
-    return true; // All characters matched
+
+    // Pop characters from the stack to build the reversed string
+    while (!charStack.empty()) {
+        reversedString += charStack.top();
+        charStack.pop();
+    }
+
+    // Check if the reversed string matches the original
+    return input == reversedString;
 }
 
 int main() {
     string input;
 
-    
     cout << "Enter the string: ";
     cin >> input;
 
-
     if (isPalindrome(input)) {
-        cout << "Palindrome";
+        cout << "Palindrome" << endl;
     } else {
-        cout << "Not Palindrome";
+        cout << "Not Palindrome" << endl;
     }
 
     return 0;
